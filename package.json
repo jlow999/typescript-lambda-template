@@ -1,0 +1,74 @@
+{
+  "name": "typescript-template",
+  "version": "1.0.0",
+  "description": "Template for starting typescript projects",
+  "main": "dist/bundle.js",
+  "scripts": {
+    "build": "webpack",
+    "lint": "eslint src/**/*.ts"
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 2017,
+      "sourceType": "module"
+    },
+    "plugins": [
+      "@typescript-eslint/eslint-plugin"
+    ],
+    "rules": {
+      "@typescript-eslint/no-non-null-assertion": 0
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hexlabsio/typescript-template.git"
+  },
+  "author": "hexlabs",
+  "bugs": {
+    "url": "https://github.com/hexlabsio/typescript-template/issues"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
+  "jest": {
+    "transform": {
+      ".(ts)": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ]
+  },
+  "homepage": "https://github.com/hexlabsio/typescript-template#readme",
+  "devDependencies": {
+    "@types/chai": "^4.2.4",
+    "@types/jest": "^24.0.21",
+    "@types/node": "^12.11.5",
+    "@typescript-eslint/eslint-plugin": "^2.5.0",
+    "@typescript-eslint/parser": "^2.5.0",
+    "chai": "^4.2.0",
+    "eslint": "^6.5.1",
+    "husky": "^3.0.9",
+    "jest": "^24.9.0",
+    "json-loader": "^0.5.7",
+    "node-loader": "^0.6.0",
+    "ts-jest": "^24.1.0",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.6.4",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9"
+  },
+  "dependencies": {}
+}
