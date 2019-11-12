@@ -64,9 +64,6 @@ jobs:
           keys:
             - kloudformation-{{ checksum "kloudformation.sh" }}
       - run:
-          name: Upload DB Migrations
-          command: cd .circleci/db-migrations && zip -r migrations.zip .
-      - run:
           name: Deploy Stack
           command:  ./kloudformation.sh -m serverless@1.1.4 -a dummyCodeLocation
       - store_artifacts:
