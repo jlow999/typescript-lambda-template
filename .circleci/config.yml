@@ -1,0 +1,79 @@
+version: 2
+workflows:
+  version: 2
+  buildAndDeploy:
+    jobs:
+      - master:
+          filters:
+            branches:
+              only: master
+      - branch:
+          filters:
+            branches:
+              ignore: master
+jobs:
+  master:
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - run:
+          name: Download KloudFormation
+          command:  curl -sSL install.kloudformation.hexlabs.io | bash -s -- -local
+      - run:
+          name: Install
+          command: npm install
+      - run:
+          name: Lint
+          command: npm run lint
+      - run:
+          name: Production Build
+          command: npm run build
+      - restore_cache:
+          keys:
+            - kloudformation-{{ checksum "kloudformation.sh" }}
+      - run:
+          name: Deploy Stack
+          command: ./kloudformation.sh -m serverless@1.1.4 deploy -stack-name klouds-relationships -bucket hexlabs-deployments -output output.properties -location dist
+      - store_artifacts:
+          path: template.yml
+      - store_artifacts:
+          path: output.properties
+      - save_cache:
+          paths:
+            - ~/.kloudformation
+          key: kloudformation-{{ checksum "kloudformation.sh" }}
+  branch:
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - run:
+          name: Download KloudFormation
+          command:  curl -sSL install.kloudformation.hexlabs.io | bash -s -- -local
+      - run:
+          name: Install
+          command: npm install
+      - run:
+          name: Lint
+          command: npm run lint
+      - run:
+          name: Production Build
+          command: npm run build
+      - restore_cache:
+          keys:
+            - kloudformation-{{ checksum "kloudformation.sh" }}
+      - run:
+          name: Upload DB Migrations
+          command: cd .circleci/db-migrations && zip -r migrations.zip .
+      - run:
+          name: Deploy Stack
+          command:  ./kloudformation.sh -m serverless@1.1.4 -a dummyCodeLocation
+      - store_artifacts:
+          path: template.yml
+      - store_artifacts:
+          path: output.properties
+      - save_cache:
+          paths:
+            - ~/.kloudformation
+          key: kloudformation-{{ checksum "kloudformation.sh" }}

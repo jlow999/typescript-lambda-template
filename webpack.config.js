@@ -3,6 +3,9 @@ const path = require('path');
 module.exports = {
     entry: './src/index.ts',
     mode: 'none',
+    externals: {
+        'aws-sdk': 'aws-sdk'
+    },
     devtool: "inline-source-map",
     module: {
         rules: [

@@ -1,20 +1,22 @@
 {
-  "name": "typescript-template",
+  "name": "typescript-lambda-template",
   "version": "1.0.0",
-  "description": "Template for starting typescript projects",
   "main": "dist/bundle.js",
   "scripts": {
     "build": "webpack",
-    "lint": "eslint src/**/*.ts"
+    "lint": "eslint **/*.ts"
   },
+  "eslintIgnore": ["webpack.config.js"],
   "eslintConfig": {
     "extends": [
       "eslint:recommended",
+      "plugin:jest/recommended",
       "plugin:@typescript-eslint/recommended"
     ],
     "env": {
       "node": true,
-      "es6": true
+      "es6": true,
+      "jest/globals": true
     },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -22,19 +24,21 @@
       "sourceType": "module"
     },
     "plugins": [
-      "@typescript-eslint/eslint-plugin"
+      "@typescript-eslint/eslint-plugin",
+      "jest"
     ],
     "rules": {
-      "@typescript-eslint/no-non-null-assertion": 0
+      "@typescript-eslint/no-non-null-assertion": 0,
+      "no-prototype-builtins": 0
     }
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hexlabsio/typescript-template.git"
+    "url": "git+https://github.com/hexlabsio/typescript-lambda-template.git"
   },
   "author": "hexlabs",
   "bugs": {
-    "url": "https://github.com/hexlabsio/typescript-template/issues"
+    "url": "https://github.com/hexlabsio/typescript-lambda-template/issues"
   },
   "husky": {
     "hooks": {
@@ -51,15 +55,18 @@
       "js"
     ]
   },
-  "homepage": "https://github.com/hexlabsio/typescript-template#readme",
+  "homepage": "https://github.com/hexlabsio/typescript-lambda-template#readme",
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.33",
     "@types/chai": "^4.2.4",
     "@types/jest": "^24.0.21",
     "@types/node": "^12.11.5",
     "@typescript-eslint/eslint-plugin": "^2.5.0",
     "@typescript-eslint/parser": "^2.5.0",
+    "aws-sdk": "^2.548.0",
     "chai": "^4.2.0",
     "eslint": "^6.5.1",
+    "eslint-plugin-jest": "^23.0.3",
     "husky": "^3.0.9",
     "jest": "^24.9.0",
     "json-loader": "^0.5.7",
