@@ -6,7 +6,7 @@ import io.kloudformation.unaryPlus
 class Stack: StackBuilder {
     override fun KloudFormation.create(args: List<String>) {
         serverless("typescript-lambda-template", "prod", +"hexlabs-deployments") {
-            serverlessFunction("lambda", +args.first(), +"bundle.handler", +"nodejs10.x")
+            serverlessFunction("lambda", +args.first(), +"bundle.handler", +"nodejs12.x")
         }
     }
 }

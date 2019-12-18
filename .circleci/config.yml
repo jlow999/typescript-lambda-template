@@ -14,7 +14,7 @@ workflows:
 jobs:
   master:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
     steps:
       - checkout
       - run:
@@ -34,7 +34,7 @@ jobs:
             - kloudformation-{{ checksum "kloudformation.sh" }}
       - run:
           name: Deploy Stack
-          command: ./kloudformation.sh -m serverless@1.1.4 deploy -stack-name klouds-relationships -bucket hexlabs-deployments -output output.properties -location dist
+          command: ./kloudformation.sh -m serverless@1.1.4 deploy -stack-name typescript-lambda-template -bucket hexlabs-deployments -output output.properties -location dist
       - store_artifacts:
           path: template.yml
       - store_artifacts:
@@ -45,7 +45,7 @@ jobs:
           key: kloudformation-{{ checksum "kloudformation.sh" }}
   branch:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
     steps:
       - checkout
       - run:
