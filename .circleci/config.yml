@@ -4,6 +4,7 @@ workflows:
   buildAndDeploy:
     jobs:
       - master:
+          context: hexlabs-aws
           filters:
             branches:
               only: master
