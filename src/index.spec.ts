@@ -1,5 +1,5 @@
 import {Context} from "aws-lambda";
-import {handler} from "../src";
+import {handler} from "./index";
 
 describe('Big Test', () => {
   it('should do something amazing', async () => {
