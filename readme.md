@@ -1,4 +1,5 @@
 to start the local server:
-npm run start
+Select 'Run Script: start" from launch menu
 
-open web broweser and navigate to http://localhost:3000/hello
+- set function break points if needed
+- open web broweser and navigate to http://localhost:3000/hello
