@@ -6,7 +6,9 @@ import {
 } from "aws-lambda";
 
 type MyEvent = APIGatewayEvent & {
-  firstName: string;
+  body: {
+    firstName: string;
+  };
 };
 
 export const handler: Handler = async (
@@ -15,12 +17,15 @@ export const handler: Handler = async (
 ): Promise<APIGatewayProxyResult> => {
   console.log(JSON.stringify(event));
   console.log(JSON.stringify(context));
-  console.log([["a", "b"], ["c"]].flatMap((a) => a));
-  const body = {
-    firstName: event.firstName || "",
+
+  const eventBody = JSON.parse(event.body);
+  const { firstName } = eventBody;
+
+  const responseBody = {
+    firstName: firstName || "",
   };
   return {
     statusCode: 200,
-    body: JSON.stringify(body),
+    body: JSON.stringify(responseBody),
   };
 };
